@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Subjects - School Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+
+  <!-- Header + Search -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-2 text-gradient">
+      <i class="bi bi-book-half"></i> Subject List
+    </h2>
+
+    <form method="get" class="d-flex" style="max-width: 300px;">
+      <input type="text" name="q" value="{{ q }}" class="form-control rounded-pill me-2" placeholder="🔍 Search subjects...">
+      <button class="btn btn-primary rounded-pill px-3" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
+  </div>
+
+  <!-- Add New Button -->
+  <div class="mb-3">
+    <a href="{% url 'subject_add' %}" class="btn btn-success rounded-pill shadow-sm px-4">
+      <i class="bi bi-plus-circle"></i> Add New Subject
+    </a>
+  </div>
+
+  <!-- Subject Table -->
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+    <div class="card-body p-0">
+      <table class="table table-hover align-middle mb-0 text-center">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>#</th>
+            <th>Subject Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for subject in object_list %}
+          <tr class="table-row-hover">
+            <td class="fw-bold">{{ forloop.counter }}</td>
+            <td>{{ subject.subject_name }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <a href="{% url 'subject_edit' subject.id %}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm" title="Edit">
+                  <i class="bi bi-pencil"></i> Edit
+                </a>
+                <a href="{% url 'subject_delete' subject.id %}" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm" title="Delete">
+                  <i class="bi bi-trash"></i> Delete
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3" class="text-center text-muted py-4">
+              <i class="bi bi-emoji-frown"></i> No subjects found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page=1">&laquo; First</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Previous</a>
+        </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <span class="page-link">{{ page_obj.number }}</span>
+      </li>
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Next</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+
+<!-- Custom style -->
+<style>
+  .bg-primary {
+    background: linear-gradient(90deg, #0d6efd, #6610f2);
+  }
+  .text-gradient {
+    background: linear-gradient(90deg, #0d6efd, #6610f2, #6f42c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .table-hover tbody tr.table-row-hover {
+    transition: all 0.3s ease;
+  }
+  .table-hover tbody tr.table-row-hover:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .btn-warning:hover, .btn-danger:hover {
+    transform: scale(1.05);
+    color: #fff;
+  }
+  .page-link {
+    border-radius: 50px !important;
+    margin: 0 3px;
+  }
+  .pagination .active .page-link {
+    background: linear-gradient(90deg, #0d6efd, #6610f2);
+    border: none;
+  }
+</style>
+{% endblock %}

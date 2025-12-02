@@ -1,0 +1,69 @@
+[
+  {
+    "model": "app_school.subject",
+    "pk": 1,
+    "fields": {
+      "subject_name": "Mathematics"
+    }
+  },
+  {
+    "model": "app_school.subject",
+    "pk": 2,
+    "fields": {
+      "subject_name": "English"
+    }
+  },
+  {
+    "model": "app_school.subject",
+    "pk": 3,
+    "fields": {
+      "subject_name": "Computer Science"
+    }
+  },
+  {
+    "model": "app_school.student",
+    "pk": 1,
+    "fields": {
+      "first_name": "Sok",
+      "last_name": "Leng",
+      "gender": "Female",
+      "dob": "2006-04-12",
+      "address": "Phnom Penh"
+    }
+  },
+  {
+    "model": "app_school.student",
+    "pk": 2,
+    "fields": {
+      "first_name": "Chan",
+      "last_name": "Vireak",
+      "gender": "Male",
+      "dob": "2005-09-03",
+      "address": "Phnom Penh"
+    }
+  },
+  {
+    "model": "app_school.teacher",
+    "pk": 1,
+    "fields": {
+      "first_name": "Nary",
+      "last_name": "Chum",
+      "gender": "Female",
+      "dob": "1985-02-20",
+      "address": "Phnom Penh",
+      "salary": "350.00"
+    }
+  },
+  {
+    "model": "app_school.teacher",
+    "pk": 2,
+    "fields": {
+      "first_name": "Bun",
+      "last_name": "Rith",
+      "gender": "Male",
+      "dob": "1978-11-01",
+      "address": "Phnom Penh",
+      "salary": "420.00"
+    }
+  }
+]

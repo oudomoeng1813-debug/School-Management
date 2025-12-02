@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Teachers - School Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+
+  <!-- Header + Search -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-2 text-gradient">
+      <i class="bi bi-person-badge-fill"></i> Teacher List
+    </h2>
+
+    <form method="get" class="d-flex" style="max-width: 300px;">
+      <input type="text" name="q" value="{{ q }}" class="form-control rounded-pill me-2" placeholder="🔍 Search teachers...">
+      <button class="btn btn-primary rounded-pill px-3" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
+  </div>
+
+  <!-- Add New Button -->
+  <div class="mb-3">
+    <a href="{% url 'teacher_add' %}" class="btn btn-success rounded-pill shadow-sm px-4">
+      <i class="bi bi-plus-circle"></i> Add New Teacher
+    </a>
+  </div>
+
+  <!-- Teacher Table -->
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+    <div class="card-body p-0">
+      <table class="table table-hover align-middle mb-0 text-center">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>DOB</th>
+            <th>Address</th>
+            <th>Salary</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for teacher in object_list %}
+          <tr class="table-row-hover">
+            <td class="fw-bold">{{ forloop.counter }}</td>
+            <td>{{ teacher.first_name }}</td>
+            <td>{{ teacher.last_name }}</td>
+            <td>
+              {% if teacher.gender == "Male" %}
+                <span class="badge bg-primary">Male</span>
+              {% elif teacher.gender == "Female" %}
+                <span class="badge bg-pink text-light">Female</span>
+              {% else %}
+                <span class="badge bg-secondary">Other</span>
+              {% endif %}
+            </td>
+            <td>{{ teacher.dob }}</td>
+            <td>{{ teacher.address }}</td>
+            <td>${{ teacher.salary }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <a href="{% url 'teacher_edit' teacher.id %}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm" title="Edit">
+                  <i class="bi bi-pencil"></i> Edit
+                </a>
+                <a href="{% url 'teacher_delete' teacher.id %}" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm" title="Delete">
+                  <i class="bi bi-trash"></i> Delete
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="8" class="text-center text-muted py-4">
+              <i class="bi bi-emoji-frown"></i> No teachers found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page=1">&laquo; First</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Previous</a>
+        </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <span class="page-link">{{ page_obj.number }}</span>
+      </li>
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Next</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?q={{ q }}&page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+
+<!-- Custom styling -->
+<style>
+  .bg-primary {
+    background: linear-gradient(90deg, #0d6efd, #6610f2);
+  }
+  .badge.bg-pink {
+    background-color: #e83e8c !important;
+  }
+  .text-gradient {
+    background: linear-gradient(90deg, #0d6efd, #6610f2, #6f42c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .table-hover tbody tr.table-row-hover {
+    transition: all 0.3s ease;
+  }
+  .table-hover tbody tr.table-row-hover:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .btn-warning:hover, .btn-danger:hover {
+    transform: scale(1.05);
+    color: #fff;
+  }
+  .page-link {
+    border-radius: 50px !important;
+    margin: 0 3px;
+  }
+  .pagination .active .page-link {
+    background: linear-gradient(90deg, #0d6efd, #6610f2);
+    border: none;
+  }
+</style>
+{% endblock %}

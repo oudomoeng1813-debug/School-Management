@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - School Management{% endblock %}
+
+{% block content %}
+<style>
+  /* 🌈 Dashboard Style Enhancements */
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .dashboard-header h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #007bff, #00c9a7, #f9ca24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dashboard-header p {
+    color: #6c757d;
+    font-size: 1.1rem;
+  }
+
+  .stat-card {
+    border: none;
+    border-radius: 16px;
+    color: #fff;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.8;
+  }
+
+  .bg-students { background: linear-gradient(135deg, #007bff, #00c6ff); }
+  .bg-teachers { background: linear-gradient(135deg, #28a745, #90ee90); }
+  .bg-subjects { background: linear-gradient(135deg, #ffc107, #ff8800); }
+  .bg-attendance { background: linear-gradient(135deg, #6f42c1, #a066ff); }
+
+  .action-btn {
+    font-weight: 600;
+    transition: 0.2s ease;
+  }
+
+  .action-btn:hover {
+    transform: scale(1.05);
+  }
+
+  /* 🔥 Responsive */
+  @media (max-width: 768px) {
+    .dashboard-header h1 { font-size: 2rem; }
+  }
+</style>
+
+<div class="dashboard-header mt-5">
+  <h1>Welcome Back, Admin 👋</h1>
+  <p>Here’s an overview of your school’s current activities and quick actions.</p>
+</div>
+
+<!-- Dashboard Stats -->
+<div class="row g-3 d-flex justify-content-center gap-3 flex-wrap">
+  <div class="col-md-3 col-sm-6">
+    <div class="card stat-card bg-students text-center p-4">
+      <i class="bi bi-people-fill stat-icon mb-2"></i>
+      <h4>1,254</h4>
+      <p class="mb-0">Students</p>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6">
+    <div class="card stat-card bg-teachers text-center p-4">
+      <i class="bi bi-person-badge-fill stat-icon mb-2"></i>
+      <h4>86</h4>
+      <p class="mb-0">Teachers</p>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6">
+    <div class="card stat-card bg-subjects text-center p-4">
+      <i class="bi bi-book-fill stat-icon mb-2"></i>
+      <h4>42</h4>
+      <p class="mb-0">Subjects</p>
+    </div>
+  </div>
+
+<!--  <div class="col-md-3 col-sm-6">-->
+<!--    <div class="card stat-card bg-attendance text-center p-4">-->
+<!--      <i class="bi bi-calendar-check-fill stat-icon mb-2"></i>-->
+<!--      <h4>97%</h4>-->
+<!--      <p class="mb-0">Attendance Rate</p>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+
+<hr class="my-5">
+
+<!-- Quick Action Buttons -->
+<div class="text-center mt-4">
+  <h3 class="mb-4 fw-semibold">Quick Actions ⚡</h3>
+  <div class="d-flex justify-content-center gap-3 flex-wrap">
+    <a href="{% url 'student_list' %}" class="btn btn-lg btn-primary action-btn shadow-sm">
+      <i class="bi bi-people"></i> Manage Students
+    </a>
+    <a href="{% url 'teacher_list' %}" class="btn btn-lg btn-success action-btn shadow-sm">
+      <i class="bi bi-person-badge"></i> Manage Teachers
+    </a>
+    <a href="{% url 'subject_list' %}" class="btn btn-lg btn-warning action-btn shadow-sm text-dark">
+      <i class="bi bi-book"></i> Manage Subjects
+    </a>
+<!--    <a href="#" class="btn btn-lg btn-info action-btn shadow-sm text-white">-->
+<!--      <i class="bi bi-clipboard-check"></i> View Attendance-->
+<!--    </a>-->
+  </div>
+</div>
+
+<hr class="my-5">
+
+<!--&lt;!&ndash; Recent Activity (Optional Section) &ndash;&gt;-->
+<!--<div class="mt-5">-->
+<!--  <h4 class="mb-4"><i class="bi bi-clock-history"></i> Recent Activities</h4>-->
+<!--  <div class="list-group shadow-sm">-->
+<!--    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">-->
+<!--      <span><i class="bi bi-plus-circle text-primary"></i> New student <b>Sokha Phan</b> enrolled in Grade 8.</span>-->
+<!--      <small class="text-muted">2 hours ago</small>-->
+<!--    </div>-->
+<!--    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">-->
+<!--      <span><i class="bi bi-pencil-square text-success"></i> Teacher <b>Mr. Dara</b> updated subject schedule.</span>-->
+<!--      <small class="text-muted">5 hours ago</small>-->
+<!--    </div>-->
+<!--    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">-->
+<!--      <span><i class="bi bi-exclamation-circle text-warning"></i> Attendance below 90% for Grade 10A.</span>-->
+<!--      <small class="text-muted">Yesterday</small>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+{% endblock %}
